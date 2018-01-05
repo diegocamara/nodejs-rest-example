@@ -11,8 +11,8 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.post('/sigup', usuarioMediator.createUser);
+router.post('/signup', usuarioMediator.createUser);
 
-router.post('/sigin', usuarioMediator.authenticate);
+router.post('/signin', usuarioMediator.authenticate);
 
 module.exports = router;
