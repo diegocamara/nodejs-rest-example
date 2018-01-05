@@ -8,14 +8,7 @@ exports.create = async (data) => {
     return await usuario.save()
 };
 
-exports.authenticate = async (data) => {
-    let res = await Usuario.findOne({
-        email: data.email
-    });
-    return res;
-};
-
-let findByEmail = async (email) => {
+let findByEmail = async (email) => {    
     let usuario = await Usuario.findOne({
         email: email
     });

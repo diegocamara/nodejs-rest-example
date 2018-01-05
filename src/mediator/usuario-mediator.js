@@ -46,27 +46,17 @@ let userExists = async (email) => {
 
 exports.authenticate = async (req, res, next) => {
 
+    let credentials = req.body;
+    
+
     try {
-        const customer = await UsuarioRepository.authenticate({
-            email: req.body.email
-        });
+        const usuario = await UsuarioRepository.findByEmail(credentials.email);
+        
+        let checkHashHandle = async (err, isMatch) => {
 
-        let checkHashHandle = async (err, result) => {
+            if (isMatch) {
 
-            if (result) {
-
-                let data = {
-                    name: customer.name,
-                    email: customer.email
-                };
-
-                const token = await authService.generateToken(data);
-
-                res.status(201).send({
-                    token: token,
-                    data: data
-                });
-
+                res.status(201).send(usuario);
 
             } else {
                 res.status(401).send({
@@ -77,9 +67,9 @@ exports.authenticate = async (req, res, next) => {
 
         }
 
-        if (customer) {
+        if (usuario) {
 
-            bcrypt.compare(req.body.password, customer.password, checkHashHandle);
+            bcrypt.compare(credentials.senha, usuario.senha, checkHashHandle);
 
         } else {
             res.status(404).send({
