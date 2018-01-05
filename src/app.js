@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const jsonFormatHandle = require('./middleware/json-format-handle');
 const config = require('./config');
 
 const mongoose = require('mongoose');
@@ -22,6 +23,7 @@ const usuarioRoute = require('./routes/usuario-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(jsonFormatHandle);
 
 app.use('/', indexRoute);
 app.use('/usuarios', usuarioRoute);
