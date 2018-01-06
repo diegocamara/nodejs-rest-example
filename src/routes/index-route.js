@@ -7,7 +7,7 @@ const usuarioMediator = require('./../mediator/usuario-mediator');
 router.get('/', (req, res, next) => {
     res.status(200).send({
         title: "Node Rest Example API",
-        version: "0.0.2"
+        version: "0.0.1"
     });
 });
 
