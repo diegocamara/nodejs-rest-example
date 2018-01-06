@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./bin/server.js"
+    "start": "nodemon ./bin/server.js",
+    "test": "NODE_ENV=test mocha 'src/**/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,10 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "chai": "^4.1.2",
+    "mocha": "^4.1.0",
+    "nodemon": "^1.11.0",
+    "proxyquire": "^1.8.0",
+    "sinon": "^4.1.3"
   }
 }
