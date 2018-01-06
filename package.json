@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diegocamara/nodejsapis.git"
+    "url": "git+https://github.com/diegocamara/nodejs-rest-example.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/diegocamara/nodejsapis/issues"
+    "url": "https://github.com/diegocamara/nodejs-rest-example/issues"
   },
-  "homepage": "https://github.com/diegocamara/nodejsapis#readme",
+  "homepage": "https://github.com/diegocamara/nodejs-rest-example#readme",
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
