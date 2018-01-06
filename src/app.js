@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonFormatHandle = require('./middleware/json-format-handle');
 const config = require('./config');
+const authService = require('./services/auth-service');
 
 const mongoose = require('mongoose');
 const app = express();
@@ -26,6 +27,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(jsonFormatHandle);
 
 app.use('/', indexRoute);
-app.use('/usuarios', usuarioRoute);
+app.use('/usuarios', authService.authorize, usuarioRoute);
 
 module.exports = app;

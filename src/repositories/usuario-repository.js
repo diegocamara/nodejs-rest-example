@@ -8,11 +8,23 @@ exports.create = async (data) => {
     return await usuario.save()
 };
 
-let findByEmail = async (email) => {    
+exports.findByEmail = async (email) => {
     let usuario = await Usuario.findOne({
         email: email
     });
     return usuario;
 };
 
-exports.findByEmail = findByEmail;
+exports.findById = async (id) => {
+    let usuario = await Usuario.findOne({
+        _id: id
+    });
+    return usuario;
+};
+
+exports.findByEmailAndUpdateLastLogin = async (email) => {
+    let usuario = await Usuario.findOneAndUpdate({ email: email }, {
+        '$set': { ultimo_login: Date.now() }
+    }, { 'new': true });
+    return usuario;
+};

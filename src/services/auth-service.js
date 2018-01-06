@@ -15,7 +15,7 @@ exports.authorize = (req, res, next) => {
     
     if (!token) {
         res.status(401).json({
-            message: 'Acesso Restrito'
+            mensagem: 'Não autorizado'
         });
     } else {
         jwt.verify(token, process.env.JWT_KEY, (error, decoded) => {
@@ -24,7 +24,8 @@ exports.authorize = (req, res, next) => {
                 res.status(401).json({
                     message: 'Token Inválido'
                 });
-            } else {
+            } else {                
+                res.locals.token = token;
                 next();
             }
 

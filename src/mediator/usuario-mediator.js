@@ -71,7 +71,8 @@ exports.authenticate = async (req, res, next) => {
     }
 
     try {
-        const usuario = await UsuarioRepository.findByEmail(credentials.email);
+
+        const usuario = await UsuarioRepository.findByEmailAndUpdateLastLogin(credentials.email);
 
         let checkHashHandle = async (err, isMatch) => {
 
@@ -100,8 +101,47 @@ exports.authenticate = async (req, res, next) => {
 
     } catch (e) {
         res.status(500).send({
-            message: 'Falha ao cadastrar cliente!',
-            data: e
+            mensagem: 'Falha ao cadastrar cliente!'
+        });
+    }
+
+};
+
+exports.findOne = async (req, res, next) => {
+
+    let idUsuario = req.params.id;
+    let requestToken = res.locals.token;
+
+    try {
+
+        let usuario = await UsuarioRepository.findById(idUsuario);
+        
+        if (!usuario) {
+            res.status(404).send({ mensagem: 'Usuário não encontrado' });
+            return;
+        }
+
+        if (requestToken !== usuario.token) {
+            res.status(401).send({ mensagem: 'Não autorizado' });
+            return;
+        }
+
+        let now = new Date();
+        let diffMilliseconds = (now - usuario.ultimo_login);
+        var diffMinutes = Math.round(((diffMilliseconds % 86400000) % 3600000) / 60000);
+       
+        if (diffMinutes > global.SESSION_TIMEOUT) {
+            res.status(401).send({
+                mensagem: 'Sessão inválida'
+            });
+            return;
+        }
+
+        res.status(200).send(usuario);
+
+    } catch (e) {
+        res.status(500).send({
+            mensagem: 'Falha buscar usuário!'
         });
     }
 
