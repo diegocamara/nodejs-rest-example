@@ -11,6 +11,7 @@ exports.decodeToken = async (token) => {
 }
 
 exports.authorize = (req, res, next) => {
+    
     let authorization = req.headers['authorization'];
 
     let token;
