@@ -64,3 +64,5 @@ function onListening() {
 
     debug('Listening on ' + bind);
 }
+
+module.exports = server;

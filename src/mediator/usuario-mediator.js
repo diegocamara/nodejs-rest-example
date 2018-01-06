@@ -22,7 +22,7 @@ exports.createUser = async (req, res, next) => {
     try {
 
         if (await userExists(novoUsuario.email)) {
-            res.status(404).json({
+            res.status(409).json({
                 mensagem: 'E-mail já existente'
             });
             return;
