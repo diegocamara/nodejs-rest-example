@@ -11,8 +11,14 @@ exports.decodeToken = async (token) => {
 }
 
 exports.authorize = (req, res, next) => {
-    let token = req.body.token || req.query.token || req.headers['x-access-token'];
-    
+    let authorization = req.headers['authorization'];
+
+    let token;
+
+    if (authorization) {
+        token = authorization.split(' ')[1];        
+    }
+   
     if (!token) {
         res.status(401).json({
             mensagem: 'Não autorizado'
@@ -24,7 +30,7 @@ exports.authorize = (req, res, next) => {
                 res.status(401).json({
                     message: 'Token Inválido'
                 });
-            } else {                
+            } else {
                 res.locals.token = token;
                 next();
             }
