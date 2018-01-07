@@ -29,8 +29,7 @@ exports.createUser = async (req, res, next) => {
         }
 
         let dataAtual = Date.now();
-        novoUsuario.data_criacao = dataAtual;
-        novoUsuario.ultimo_login = dataAtual;
+        novoUsuario.data_criacao = dataAtual;        
         novoUsuario.senha = await getUserPassHash(novoUsuario.senha);
         novoUsuario.token = await authService.generateToken(novoUsuario);
 
