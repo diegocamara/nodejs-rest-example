@@ -111,17 +111,17 @@ exports.findOne = async (req, res, next) => {
     let idUsuario = req.params.id;
     let requestToken = res.locals.token;
 
-    try {        
-
-        if (requestToken !== usuario.token) {
-            res.status(401).send({ mensagem: 'Não autorizado' });
-            return;
-        }
+    try {
 
         let usuario = await UsuarioRepository.findById(idUsuario);
 
         if (!usuario) {
             res.status(404).send({ mensagem: 'Usuário não encontrado' });
+            return;
+        }
+
+        if (requestToken !== usuario.token) {
+            res.status(401).send({ mensagem: 'Não autorizado' });
             return;
         }
 
